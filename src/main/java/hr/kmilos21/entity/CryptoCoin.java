@@ -20,7 +20,7 @@ public class CryptoCoin extends PanacheEntityBase {
     @Column(name="current_val", nullable = false)
     private Double currentVal;
 
-    @Column(name = "min_val", nullable = false)
+    @Column(name = "min_val", nullable = true)
     private Double minVal;
 
     @Column(name = "max_val", nullable = false)
@@ -37,6 +37,18 @@ public class CryptoCoin extends PanacheEntityBase {
         this.currentVal = currentVal;
         this.minVal = minVal;
         this.maxVal = maxVal;
+    }
+
+    public void setValues(Double newVal) {
+        this.currentVal = newVal;
+
+        if (this.minVal == null || newVal <= this.minVal) {
+            this.minVal = newVal;
+        }
+
+        if (this.maxVal == null || newVal >= this.maxVal) {
+            this.maxVal = newVal;
+        }
     }
 
 }
